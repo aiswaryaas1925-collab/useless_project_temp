@@ -4,6 +4,22 @@ import redditImage from "./assets/redditmaman.png";
 function App() {
  const [page, setPage] = useState("dashboard");
  const [ignored, setIgnored] = useState("");
+ const [problem, setProblem] = useState("");
+ const [language, setLanguage] = useState("en");
+ const text = {
+  en: {
+    meet: "MEET YOUR ADVISORS",
+    subtitle: "Three experts. Zero qualifications. Unlimited bad advice.",
+    ready: "READY TO RUIN YOUR PROBLEM?",
+    start: "🔥 GET THE WORST ADVICE",
+  },
+  ml: {
+    meet: "നിങ്ങളുടെ ഉപദേശകരെ പരിചയപ്പെടൂ",
+    subtitle: "മൂന്ന് വിദഗ്ധർ. യോഗ്യത പൂജ്യം. മോശം ഉപദേശം അനന്തം.",
+    ready: "നിങ്ങളുടെ പ്രശ്നം നശിപ്പിക്കാൻ തയ്യാറാണോ?",
+    start: "🔥 ഏറ്റവും മോശം ഉപദേശം നേടൂ",
+  },
+};
 
   return (
     <div className="app">
@@ -29,14 +45,18 @@ function App() {
             ⌂ Home
           </button>
 
-          <button>☠ Hall of Shame</button>
+          <button onClick={() => setPage("shame")}>
+  ☠ Hall of Shame
+</button>
           <button>⚙ Why this exists?</button>
           <button>ⓘ About</button>
         </div>
 
         <div className="nav-right">
           <button>🔊</button>
-          <button>മലയാളം⌄</button>
+         <button onClick={() => setLanguage(language === "en" ? "ml" : "en")}>
+  {language === "en" ? "മലയാളം" : "English"}
+</button>
         </div>
 
       </nav>
@@ -51,9 +71,12 @@ function App() {
           </div>
 
           <h1>
-            MEET YOUR <span>ADVISORS</span>
-          </h1>
-
+  {language === "ml" ? (
+    <span>{text.ml.meet}</span>
+  ) : (
+    <>MEET YOUR <span>ADVISORS</span></>
+  )}
+</h1>
           <p className="subtitle">
             Three experts. Zero qualifications. Unlimited bad advice.
           </p>
@@ -172,13 +195,16 @@ function App() {
       </div>
 
       <textarea
-        className="problem-input"
-        placeholder="Tell us your problem... exam tomorrow, relationship drama, career confusion..."
-      />
+  className="problem-input"
+  placeholder="Tell us your problem... exam tomorrow, relationship drama, career confusion..."
+  value={problem}
+  onChange={(e) => setProblem(e.target.value)}
+  maxLength={500}
+/>
 
-      <div className="input-footer">
+            <div className="input-footer">
         <span>⚠ Your problem will be made significantly worse.</span>
-        <span>0 / 500</span>
+        <span>{problem.length} / 500</span>
       </div>
 
     </div>
@@ -212,6 +238,9 @@ function App() {
     <p className="subtitle">
       Three experts. Three terrible solutions. Choose wisely.
     </p>
+    <div className="worst-winner">
+  🏆 CURRENT WORST ADVISOR: <strong>REDDIT MAMAN</strong>
+</div>
 
     <div className="advice-list">
 
@@ -296,13 +325,26 @@ function App() {
       </div>
 
     </div>
+    <button
+  className="argue-btn"
+  onClick={() => setPage("argument")}
+>
+  ⚔️ MAKE THEM ARGUE
+</button>
+<button
+  className="why-btn"
+  onClick={() => setPage("why")}
+>
+ 
+  🧠 WHY DID THEY SAY THIS?
+</button>
 
 
-    <div className="advice-actions">
+        <div className="advice-actions">
 
       <button
         className="start-btn"
-        onClick={() => setPage("advice")}
+        onClick={() => setPage("worse")}
       >
         🔥 MAKE IT WORSE
       </button>
@@ -315,6 +357,179 @@ function App() {
       </button>
 
     </div>
+
+  </main>
+)}
+      {/* ARGUMENT PAGE */}
+{page === "argument" && (
+  <main className="argument-page">
+
+    <div className="welcome-tag">
+      ⚔️ COMMITTEE CIVIL WAR
+    </div>
+
+    <h1>
+      THEY'RE <span>ARGUING</span>
+    </h1>
+
+    <p className="subtitle">
+      Three terrible opinions. One extremely unnecessary argument.
+    </p>
+
+    <div className="argument-box">
+
+      <div className="argument-line">
+        <strong>👩 CHECHI:</strong>
+        <p>"Obviously my advice was the best. I have experience."</p>
+      </div>
+
+      <div className="argument-line">
+        <strong>🧓 NATTILE UPADESHI:</strong>
+        <p>"Experience? I once gave advice to someone in 1998."</p>
+      </div>
+
+      <div className="argument-line">
+        <strong>🕶️ REDDIT MAMAN:</strong>
+        <p>"Bro, both of you are wrong. Reddit agrees with me."</p>
+      </div>
+
+      <div className="argument-line final-argument">
+        <strong>☠ COMMITTEE VERDICT:</strong>
+        <p>Nobody won. Everyone became more confident.</p>
+      </div>
+
+    </div>
+    <button
+  className="back-btn"
+  onClick={() => setPage("advice")}
+>
+  ← BACK TO ADVICE
+</button>
+
+    
+
+  </main>
+)}
+
+      {/* WORSE PAGE */}
+      {page === "worse" && (
+        <main className="worse-page">
+
+          <div className="welcome-tag">
+            ☠ CONSEQUENCES DEPARTMENT
+          </div>
+
+          <h1>
+            YOU MADE THE <span>WRONG CHOICE</span>
+          </h1>
+
+          <p className="subtitle">
+            Congratulations. Your problem has officially become worse.
+          </p>
+
+          <div className="chaos-box">
+
+  <div className="chaos-title">
+    💀 CONSEQUENCE CHAIN
+  </div>
+
+  <div className="consequence">
+    <strong>STEP 1</strong>
+    <p>You stop studying.</p>
+  </div>
+
+  <div className="arrow">↓</div>
+
+  <div className="consequence">
+    <strong>STEP 2</strong>
+    <p>You become extremely confident for absolutely no reason.</p>
+  </div>
+
+  <div className="arrow">↓</div>
+
+  <div className="consequence">
+    <strong>STEP 3</strong>
+    <p>You enter the exam hall with nothing in your brain.</p>
+  </div>
+
+  <div className="arrow">↓</div>
+
+  <div className="consequence final-consequence">
+    <strong>☠ FINAL CONSEQUENCE</strong>
+    <p>You write your name beautifully and consider that a good start.</p>
+  </div>
+
+</div>
+
+          
+
+          <button
+            className="back-btn"
+            onClick={() => setPage("dashboard")}
+          >
+            ← BACK TO SAFETY
+          </button>
+
+        </main>
+      )}
+      {/* WHY PAGE */}
+{page === "why" && (
+  <main className="why-page">
+
+    <div className="welcome-tag">
+      🧠 AI INVESTIGATION DEPARTMENT
+    </div>
+
+    <h1>
+      WHY DID THEY <span>SAY THIS?</span>
+    </h1>
+
+    <p className="subtitle">
+      We investigated their reasoning. We immediately regretted it.
+    </p>
+
+    <div className="reason-box">
+
+      <div className="reason">
+        <strong>👩 CHECHI</strong>
+        <p>
+          The AI detected the word "exam" and decided that
+          studying was probably the problem.
+        </p>
+      </div>
+
+      <div className="reason">
+        <strong>🧓 NATTILE UPADESHI</strong>
+        <p>
+          The system retrieved an extremely questionable
+          piece of advice and decided to make it worse.
+        </p>
+      </div>
+
+      <div className="reason">
+        <strong>🕶️ REDDIT MAMAN</strong>
+        <p>
+          A Reddit post with suspicious confidence was found.
+          The AI trusted it for absolutely no reason.
+        </p>
+      </div>
+
+      <div className="reason final-reason">
+        <strong>☠ AI CONCLUSION</strong>
+        <p>
+          The advice makes no sense. Therefore, it is perfect
+          for this committee.
+        </p>
+      </div>
+
+    </div>
+
+    <button
+      className="back-btn"
+      onClick={() => setPage("advice")}
+    >
+      ← BACK TO ADVICE
+    </button>
 
   </main>
 )}
